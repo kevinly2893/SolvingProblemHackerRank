@@ -1,0 +1,63 @@
+#include<cmath>
+#include<cstdio>
+#include<vector>
+#include<iostream>
+#include<algorithm>
+using namespace std;
+
+struct Player {
+    int score;
+    string name;
+};
+
+class Checker{
+public:
+  	// complete this method
+    static int comparator(Player a, Player b)  {
+    //if the Player a.score is larger than b, it will return 1
+        if(a.score > b.score){
+            return 1;;
+        }
+        //if both score is equal, check the name. The return is only 0 or -1
+        else if(a.score == b.score){
+           return (a.name.compare(b.name)<0?0:(-1));
+          
+        }
+        //if the b score is larger than a score, will return -1
+        else if(a.score <b.score){
+            return -1;
+        }
+        return b.score-a.score;
+        
+        
+    }
+
+};
+
+
+
+
+bool compare(Player a, Player b) {
+    if(Checker::comparator(a,b) == -1)
+        return false;
+    return true;
+}
+int main()
+{
+    int n;
+    cin >> n;
+    vector< Player > players;
+    string name;
+    int score;
+    for(int i = 0; i < n; i++){
+        cin >> name >> score;
+        Player player;
+        player.name = name, player.score = score;
+        players.push_back(player);
+    }
+    sort(players.begin(), players.end(), compare);
+    for(int i = 0; i < players.size(); i++) {
+        cout << players[i].name << " " << players[i].score << endl;
+    }
+    return 0;
+}
